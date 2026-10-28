@@ -12,6 +12,10 @@ import imgRecette from './assets/img/recette.png';
 import imgBudget from './assets/img/budget.png';
 import imgCommunaute from './assets/img/communaute.png';
 import imgImage from './assets/img/image.png';
+import featureInventaire from './assets/img/features/inventaire.jpg';
+import featureBudget from './assets/img/features/budget.jpg';
+import featureBonsPlans from './assets/img/features/bons-plans.jpg';
+import featureCommunaute from './assets/img/features/communaute.jpg';
 // ---- DATA ----
 // const stats = [
 //   { value: '10K+', label: 'Étudiants' },
@@ -22,21 +26,25 @@ import imgImage from './assets/img/image.png';
 const features = [
   {
     icon: inventaireIcon,
+    image: featureInventaire,
     title: 'Inventaire intelligent',
     desc: "Suis tes ingrédients et évite le gaspillage avec des recettes adaptées à ce que tu as déjà.",
   },
   {
     icon: budgetIcon,
+    image: featureBudget,
     title: 'Budget maîtrisé',
     desc: "Des recettes adaptées à ton budget, de 2€ à 5€ par repas.",
   },
   {
     icon: localIcon,
+    image: featureBonsPlans,
     title: 'Bons plans locaux',
     desc: "Trouve les meilleures promos près de chez toi et fais des économies intelligentes.",
   },
   {
     icon: commuIcon,
+    image: featureCommunaute,
     title: 'Communauté',
     desc: "Partage et découvre les recettes étudiantes préférées de ta région.",
   },
@@ -94,20 +102,30 @@ function Header() {
         height: '56px',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
         background: scrolled ? 'rgba(255,255,255,0.95)' : 'transparent',
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
         boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.08)' : 'none',
         transition: 'all 0.3s ease',
       }}
     >
-      <span style={{ fontFamily: "'Fredoka One', cursive", fontSize: '1.4rem', color: scrolled ? '#1a1a1a' : '#fff', textShadow: scrolled ? 'none' : '0 1px 4px rgba(0,0,0,0.3)' }}>
+      <div
+        style={{
+          width: '100%',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+      <a href="#accueil" aria-label="Ymeal, retour en haut de page" style={{ fontFamily: "'Fredoka One', cursive", fontSize: '1.4rem', color: scrolled ? '#1a1a1a' : '#fff', textShadow: scrolled ? 'none' : '0 1px 4px rgba(0,0,0,0.3)', textDecoration: 'none' }}>
         Ymeal
-      </span>
+      </a>
       <nav style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
         {['Fonctionnalités', 'Pourquoi', 'Avis'].map((item) => (
           <a
             key={item}
+            className="navbar-link"
             href={`#${item.toLowerCase()}`}
             style={{
               textDecoration: 'none',
@@ -115,13 +133,13 @@ function Header() {
               fontSize: '0.85rem',
               fontWeight: 500,
               fontFamily: "'DM Sans', sans-serif",
-              transition: 'color 0.2s',
             }}
           >
             {item}
           </a>
         ))}
         <a
+          className="navbar-cta"
           href="#cta"
           style={{
             background: '#1a1a1a',
@@ -138,6 +156,7 @@ function Header() {
           Commencer
         </a>
       </nav>
+      </div>
     </header>
   );
 }
@@ -145,10 +164,12 @@ function Header() {
 function HeroSection() {
   return (
     <section
+      id="accueil"
       style={{
         position: 'relative',
         width: '100%',
-        height: '520px',
+        height: 'clamp(540px, 44vw, 640px)',
+        padding: '0 2rem',
         overflow: 'hidden',
         display: 'flex',
         alignItems: 'center',
@@ -181,9 +202,9 @@ function HeroSection() {
         style={{
           position: 'relative',
           zIndex: 10,
-          padding: '0 5vw',
-          maxWidth: '520px',
-          marginTop: '40px',
+          width: '100%',
+          maxWidth: '1200px',
+          margin: '0 auto',
         }}
       >
         <div
@@ -208,10 +229,10 @@ function HeroSection() {
         <h1
           style={{
             fontFamily: "'Fredoka One', cursive",
-            fontSize: 'clamp(2rem, 4vw, 3.2rem)',
+            fontSize: 'clamp(2.8rem, 5.2vw, 4.6rem)',
             lineHeight: 1.05,
             color: '#1a0a00',
-            margin: '0 0 0.75rem',
+            margin: '0 0 1.2rem',
           }}
         >
           Welcome to
@@ -221,11 +242,11 @@ function HeroSection() {
         <p
           style={{
             fontFamily: "'DM Sans', sans-serif",
-            fontSize: '0.9rem',
+            fontSize: 'clamp(0.95rem, 1.2vw, 1.1rem)',
             color: '#3d1a00',
             lineHeight: 1.5,
-            margin: '0 0 1.1rem',
-            maxWidth: '380px',
+            margin: '0 0 1.5rem',
+            maxWidth: '460px',
           }}
         >
           L'application qui transforme ton budget étudiant en repas savoureux. Des recettes adaptatives, des bons plans près de chez toi, et une communauté pour partager.
@@ -238,8 +259,8 @@ function HeroSection() {
             color: '#FFD625',
             fontFamily: "'DM Sans', sans-serif",
             fontWeight: 700,
-            fontSize: '0.9rem',
-            padding: '0.7rem 1.6rem',
+            fontSize: '1rem',
+            padding: '0.85rem 1.8rem',
             borderRadius: '999px',
             textDecoration: 'none',
             boxShadow: '0 4px 16px rgba(0,0,0,0.25)',
@@ -354,20 +375,21 @@ function FeaturesSection() {
           margin: '0 auto',
         }}
       >
-        {features.map(({ icon, title, desc }) => (
+        {features.map(({ icon, image, title, desc }) => (
           <div
             key={title}
             style={{
               background: '#fff',
-              borderRadius: '24px',
-              overflow: 'visible',
+              border: '1px solid rgba(0,0,0,0.08)',
+              borderRadius: '14px',
+              overflow: 'hidden',
               boxShadow: '0 4px 18px rgba(0,0,0,0.04)',
               textAlign: 'left',
               transition: 'all 0.25s ease',
               cursor: 'default',
               minHeight: '240px',
-display: 'flex',
-flexDirection: 'column',
+              display: 'flex',
+              flexDirection: 'column',
             }}
             onMouseEnter={(e) => {
               (e.currentTarget as HTMLElement).style.transform =
@@ -382,17 +404,31 @@ flexDirection: 'column',
                 '0 4px 18px rgba(0,0,0,0.04)';
             }}
           >
-            {/* Top green area */}
+            {/* Image and icon */}
             <div
               style={{
-              background: '#DDE58B',
-              padding: '1rem',
-              height: '120px',
+                position: 'relative',
+                background: '#DDE58B',
+                height: '160px',
+                flexShrink: 0,
               }}
             >
+              <img
+                src={image}
+                alt=""
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  display: 'block',
+                }}
+              />
               {/* Icon bubble */}
               <div
                 style={{
+                  position: 'absolute',
+                  bottom: '12px',
+                  left: '16px',
                   width: '52px',
                   height: '52px',
                   borderRadius: '18px',
@@ -519,6 +555,7 @@ function WhySection() {
               gridColumn: 'span 6',
               background:
                 'linear-gradient(135deg, #F6D44B 0%, #E58C2F 100%)',
+              border: '1px solid rgba(0,0,0,0.08)',
               borderRadius: '18px',
               padding: '2rem',
               minHeight: '210px',
@@ -558,6 +595,7 @@ function WhySection() {
           <div
             style={{
               gridColumn: 'span 6',
+              border: '1px solid rgba(0,0,0,0.08)',
               borderRadius: '18px',
               overflow: 'hidden',
               minHeight: '210px',
@@ -582,9 +620,12 @@ function WhySection() {
               style={{
                 gridColumn: 'span 3',
                 background: '#fff',
+                border: '1px solid rgba(0,0,0,0.08)',
                 borderRadius: '14px',
                 overflow: 'hidden',
                 boxShadow: '0 2px 10px rgba(0,0,0,0.04)',
+                display: 'flex',
+                flexDirection: 'column',
               }}
             >
               <img
@@ -592,14 +633,18 @@ function WhySection() {
                 alt=""
                 style={{
                   width: '100%',
-                  height: '120px',
+                  height: '220px',
+                  minHeight: '220px',
+                  flex: '1 1 220px',
                   objectFit: 'cover',
+                  display: 'block',
                 }}
               />
 
               <div
                 style={{
                   padding: '1rem',
+                  flexShrink: 0,
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.6rem',
@@ -636,6 +681,7 @@ function WhySection() {
             style={{
               gridColumn: 'span 6',
               background: '#fff',
+              border: '1px solid rgba(0,0,0,0.08)',
               borderRadius: '14px',
               overflow: 'hidden',
               boxShadow: '0 2px 10px rgba(0,0,0,0.04)',
@@ -689,6 +735,7 @@ function WhySection() {
               style={{
                 gridColumn: 'span 4',
                 background: '#fff',
+                border: '1px solid rgba(0,0,0,0.08)',
                 borderRadius: '14px',
                 overflow: 'hidden',
                 boxShadow: '0 2px 10px rgba(0,0,0,0.04)',
@@ -960,10 +1007,8 @@ function CTASection() {
         </p>
 
         {/* BUTTON */}
-        <button
-          onClick={() => {
-            alert('Inscription bientôt disponible 🚀');
-          }}
+        <a
+          href="https://frontmeal.osc-fr1.scalingo.io/onboarding"
           style={{
             background: '#16110F',
             color: '#fff',
@@ -976,6 +1021,7 @@ function CTASection() {
             fontFamily: "'DM Sans', sans-serif",
             fontSize: '1.1rem',
             fontWeight: 700,
+            textDecoration: 'none',
 
             display: 'flex',
             alignItems: 'center',
@@ -1000,7 +1046,7 @@ function CTASection() {
           Commence gratuitement
 
           <span style={{ fontSize: '1.5rem' }}>→</span>
-        </button>
+        </a>
 
         {/* FOOT TEXT */}
         <p

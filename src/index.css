@@ -1,1 +1,40 @@
 @import "tailwindcss";
+
+.navbar-link {
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.navbar-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+.navbar-link:hover,
+.navbar-link:focus-visible {
+  transform: translateY(-1px);
+}
+
+.navbar-link:hover::after,
+.navbar-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.navbar-cta {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.navbar-cta:hover,
+.navbar-cta:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
